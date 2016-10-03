@@ -1,0 +1,168 @@
+// @Author: Matthew Juggins <matthewjuggins>
+// @Date:   02-10-16
+// @Email:  jugginsmatthew@gmail.com
+// @Last modified by:   matthewjuggins
+// @Last modified time: 03-10-16
+// Description:
+// A complete set of mixins I frequently use for flexbox.
+// Container and item properties are seperated with a mixin to encompass all
+// the possible properties for either a container or item.
+
+ /* Adds necessary browser prefixes to flex properties.
+ * @param {*} $property : CSS Property
+ * @param {*} $value : Value given to property */
+ @mixin flex-prefix($property, $value) {
+   -webkit-#{$property}: #{$value};
+   -moz-#{$property}: #{$value};
+   -ms-#{$property}: #{$value};
+   #{$property}: #{$value};
+ }
+
+// CONTAINER MIXINS
+
+/* Block level flex container.
+ * Also given as placeholder  */
+@mixin flexbox() {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+
+%flexbox {
+  @include flexbox;
+}
+
+/* Inline Block level flex container.
+ * Also given as placeholder  */
+@mixin inline-flex {
+	display: -webkit-inline-box;
+  display: -moz-inline-flex;
+	display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+	display: inline-flex;
+}
+
+%inline-flex {
+  @include inline-flex;
+}
+
+/* Flex Direction property.
+* Box ordering is not reversed.
+* @param {Value} $direction : Flex direction value:
+*   row | row-reverse | column | column-reverse */
+@mixin flex-direction($direction: row) {
+  @include flex-prefix('flex-direction', $direction);
+}
+
+/* Flex Wrap property.
+* @param {Value} $wrap : Flex wrap value:
+*   nowrap | wrap | wrap-reverse */
+@mixin flex-wrap($wrap: nowrap) {
+  @include flex-prefix('flex-wrap', $wrap);
+}
+
+/* Flex Flow property.
+* @param {Value} $flow : Flex wrap values, values for direction and wrap. */
+@mixin flex-flow($flow: (row nowrap)) {
+  @include flex-prefix('flex-flow', $flow);
+}
+
+/* Justify Content.
+* @param {Value} $justify : Justify content value :
+*   flex-start | flex-end | center | space-between | space-around */
+@mixin justify-content($justify: flex-start) {
+  @include flex-prefix('justify-content', $wrap);
+}
+
+/* Align Items.
+* @param {Value} $align-items : Align items value :
+*   flex-start | flex-end | center | baseline | stretch */
+@mixin align-items($align-items: stretch) {
+  @include flex-prefix('align-items', $align-items);
+}
+
+/* Align Content.
+* @param {Value} $align-content : Align content value :
+*   flex-start | flex-end | center | space-between | space-around | stretch */
+@mixin align-content($align-content: stretch) {
+  @include flex-prefix('align-content', $align-content);
+}
+
+/* Mixin to encompass all arguments for a flex container.
+* @param {String} $display: Flex container type.
+* @param {Value} $direction : Flex direction value.
+* @param {Value} $wrap : Flex wrap value.
+* @param {Value} $justify : Justify content value.
+* @param {Value} $align-items : Align items value.
+* @param {Value} $align-content : Align content value. */
+@mixin flex-container($display: 'flexbox', $direction: row, $wrap: nowrap, $justify: flex-start, $align-items: stretch, $align-content: stretch) {
+  @if $display == 'inline-flex' {
+      @extend %inline-flex;
+  } @else if $display == 'flexbox' {
+      @extend %flexbox;
+  } @else {
+      @extend %flexbox;
+  }
+  @include flex-direction($direction);
+  @include flex-wrap($direction);
+  @include justify-content($justify);
+  @include align-items($align-items);
+  @include align-content($align-content);
+}
+
+// ITEM MIXINS
+
+/* Item Order.
+* @param {Number} $order : Item order value <integer> */
+@mixin order($order: 0) {
+  @include flex-prefix('order', $order);
+}
+
+/* Flex Grow.
+* @param {Number} $grow : Item grow factor <integer> */
+@mixin flex-grow($grow: 0) {
+  @include flex-prefix('flex-grow', $grow);
+}
+
+/* Flex Shrink.
+* @param {Number} $shrink : Item shrink factor <integer> */
+@mixin flex-shrink($shrink: 1) {
+  @include flex-prefix('flex-shrink', $shrink);
+}
+
+/* Flex Basis.
+* @param {Value} $basis : Flex basis value :
+* 	content | ‘width’| 'height' */
+@mixin flex-shrink($basis: auto) {
+  @include flex-prefix('flex-basis', $basis);
+}
+
+/* Flex.
+ * Shorthand notation for flex-grow, flex-shrink, and flex-basis.
+ * @param {Values} $flex : Item grow factor <integer>, Item shrink factor <integer> Flex basis value */
+@mixin flex($flex: (0 1 auto)) {
+  @include flex-prefix('flex', $flex);
+}
+
+/* Align Self.
+* @param {Value} $align-self : Item self alignment :
+*   auto | flex-start | flex-end | center | baseline | stretch; */
+@mixin align-self($align-self: auto) {
+  @include flex-prefix('align-self', $align-self);
+}
+
+/* Mixin to encompass all arguments for a flex item.
+* @param {Number} $order : Item order value <integer>.
+* @param {Number} $grow : Item grow factor <integer>.
+* @param {Number} $shrink : Item shrink factor <integer>.
+* @param {Value} $basis : Flex basis value.
+* @param {Value} $align-self : Item self alignment. */
+@mixin flex-item($order: 0, $grow: 0, $shrink: 1, $basis: auto, $align-self: auto) {
+  @include order($order);
+  @include flex-grow($grow);
+  @include flex-shrink($shrink);
+  @include flex-shrink($basis);
+  @include align-self($align-self);
+}

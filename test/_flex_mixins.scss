@@ -1,0 +1,224 @@
+// @Author: Matthew Juggins <matthewjuggins>
+// @Date:   03-10-16
+// @Email:  jugginsmatthew@gmail.com
+// @Last modified by:   matthewjuggins
+// @Last modified time: 03-10-16
+
+
+@import "true";
+@import '../scss/flex_mixins';
+
+@include test-module('Flex Mixins') {
+
+  // Flexbox mixin test
+  @include test('Flexbox [mixin]') {
+    @include assert('Sets display to flexbox') {
+      @include input {
+        @include flexbox();
+      }
+      @include expect {
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+      }
+    }
+  }
+
+  // Inline Flex mixin test
+  @include test('Inline Flex [mixin]') {
+    @include assert('Sets display to inline flexbox') {
+      @include input {
+        @include inline-flex();
+      }
+      @include expect {
+        display: -webkit-inline-box;
+        display: -moz-inline-flex;
+      	display: -ms-inline-flexbox;
+        display: -webkit-inline-flex;
+      	display: inline-flex;
+      }
+    }
+  }
+
+  // Flex Direction mixin test
+  @include test('Flex Direction [mixin]') {
+    @include assert('Sets flex direction of flex container') {
+      @include input {
+        @include flex-direction(column);
+      }
+      @include expect {
+        flex-direction: column;
+      }
+    }
+  }
+
+  // Flex Wrap mixin test
+  @include test('Flex Wrap [mixin]') {
+    @include assert('Sets flex wrap of flex container') {
+      @include input {
+        @include flex-wrap(wrap);
+      }
+      @include expect {
+        flex-wrap: wrap;
+      }
+    }
+  }
+
+  // Flex Flow mixin test
+  @include test('Flex Flow [mixin]') {
+    @include assert('Sets flex flow of flex container') {
+      @include input {
+        @include flex-flow(row-reverse nowrap);
+      }
+      @include expect {
+        flex-flow: row-reverse nowrap;
+      }
+    }
+  }
+
+  // Justify Content mixin test
+  @include test('Justify Content [mixin]') {
+    @include assert('Sets content justification of flex container') {
+      @include input {
+        @include justify-content(center);
+      }
+      @include expect {
+        justify-content: center;
+      }
+    }
+  }
+
+  // Align Items mixin test
+  @include test('Align Items [mixin]') {
+    @include assert('Sets item alignment of flex container') {
+      @include input {
+        @include align-items(baseline);
+      }
+      @include expect {
+        align-items: baseline;
+      }
+    }
+  }
+
+  // Align Content mixin test
+  @include test('Align Content [mixin]') {
+    @include assert('Sets content alignment of flex container') {
+      @include input {
+        @include align-items(space-between);
+      }
+      @include expect {
+        align-content: space-between;
+      }
+    }
+  }
+
+  // Flex Container mixin test
+  @include test('Flex Container [mixin]') {
+    @include assert('Sets all values for flex container') {
+      @include input {
+        @include flex-container($display: 'flexbox', $wrap: nowrap, $justify: center, $align-items: center, $align-content: flex-end);
+      }
+      @include expect {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+        align-content: flex-end;
+      }
+    }
+  }
+
+  // Order mixin test
+  @include test('Order [mixin]') {
+    @include assert('Sets order of flex item') {
+      @include input {
+        @include order(2);
+      }
+      @include expect {
+        order: 2;
+      }
+    }
+  }
+
+  // Flex Grow mixin test
+  @include test('Flex Grow [mixin]') {
+    @include assert('Sets flex item grow factor') {
+      @include input {
+        @include flex-grow(2);
+      }
+      @include expect {
+        flex-grow: 2;
+      }
+    }
+  }
+
+  // Flex Shrink mixin test
+  @include test('Flex Shrink [mixin]') {
+    @include assert('Sets flex item shrink factor') {
+      @include input {
+        @include flex-shrink(3);
+      }
+      @include expect {
+        flex-shrink: 3;
+      }
+    }
+  }
+
+  // Flex Basis mixin test
+  @include test('Flex Basis [mixin]') {
+    @include assert('Sets flex item basis value') {
+      @include input {
+        @include flex-basis(auto);
+      }
+      @include expect {
+        flex-basis: auto;
+      }
+    }
+  }
+
+  // Flex mixin test
+  @include test('Flex [mixin]') {
+    @include assert('Sets flex item flex value (grow, shrink, basis)') {
+      @include input {
+        @include flex(1 1 auto);
+      }
+      @include expect {
+        flex: 1 1 auto;
+      }
+    }
+  }
+
+  // Align Self mixin test
+  @include test('Align Self [mixin]') {
+    @include assert('Sets flex item self alignment') {
+      @include input {
+        @include align-self(baseline);
+      }
+      @include expect {
+        align-self: baseline;
+      }
+    }
+  }
+
+  // Flex Item mixin test
+  @include test('Flex Item [mixin]') {
+    @include assert('Sets all values for flex item') {
+      @include input {
+        @include flex-item($order: 2, $shrink: 2, $basis: auto, $align-self: center);
+      }
+      @include expect {
+        order: 2;
+        flex-grow: 0;
+        flex-shrink: 2;
+        flex-basis: auto;
+        align-self: center;
+      }
+    }
+  }
+
+}
+
+@include report;
