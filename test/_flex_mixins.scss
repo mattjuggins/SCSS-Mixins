@@ -3,9 +3,11 @@
 // @Email:  jugginsmatthew@gmail.com
 // @Last modified by:   matthewjuggins
 // @Last modified time: 03-10-16
+// Description:
+// Simple unit tests using True to confirm the operation of flexbox mixins.
 
 
-@import "true";
+//@import "true";
 @import '../scss/flex_mixins';
 
 @include test-module('Flex Mixins') {
@@ -26,7 +28,7 @@
     }
   }
 
-  // Inline Flex mixin test
+  // Inline Flex mixin test.
   @include test('Inline Flex [mixin]') {
     @include assert('Sets display to inline flexbox') {
       @include input {

@@ -1,1 +1,284 @@
+// @Author: Matthew Juggins <matthewjuggins>
+// @Date:   01-10-16
+// @Email:  jugginsmatthew@gmail.com
+// @Last modified by:   matthewjuggins
+// @Last modified time: 03-10-16
+// Description:
+// Simple unit tests using True to confirm the operation of general purpose
+// mixins
 
+
+//@import "true";
+@import '../scss/general_mixins';
+
+@include test-module('General Mixins') {
+
+  // Animation mixin test
+  @include keyframes(movement) {
+    0%   { left: 100px; }
+    100% { left: 200px; }
+  }
+
+  @include test('Animation [mixin]') {
+    @include assert('Sets correct animation') {
+      @include input {
+        @include animation(movement);
+      }
+      @include expect {
+        animation-name: movement;
+      }
+    }
+  }
+
+  // Browser Prefix mixin test
+  @include test('Browser Prefix [mixin]') {
+    @include assert('Sets correct browser prefixes for given properties and values') {
+      @include input {
+        @include browser-prefix(appearance, none);
+      }
+      @include expect {
+        -webkit-appearance: none;
+        -khtml-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        appearance: none;
+      }
+    }
+  }
+
+  // Border mixin test
+  @include test('Border Radius [mixin]') {
+    @include assert('Sets correct border radius values for all corner') {
+      @include input {
+        @include border-radius($radius: 5px, $top-right: 2px, $bottom-right: 3px);
+      }
+      @include expect {
+        border-radius: 5px 2px 3px 5px
+      }
+    }
+  }
+
+  // Absolute position mixin test
+  @include test('Absolute Position [mixin]') {
+    @include assert('Sets element position to absolute and sets edge positions') {
+      @include input {
+        @include absolute($top: 10px, $right: 20px, $bottom: 30px, $left: 40px);
+      }
+      @include expect {
+        position: absolute;
+        top: 10px;
+        right: 20px;
+        bottom: 30px;
+        left: 40px;
+      }
+    }
+  }
+
+  // Relative position mixin test
+  @include test('Relative Position [mixin]') {
+    @include assert('Sets element position to relative and sets edge positions') {
+      @include input {
+        @include absolute($top: 10px, $right: 20px, $bottom: 30px, $left: 40px);
+      }
+      @include expect {
+        position: relative;
+        top: 10px;
+        right: 20px;
+        bottom: 30px;
+        left: 40px;
+      }
+    }
+  }
+
+  // Fixed position mixin test
+  @include test('Fixed Position [mixin]') {
+    @include assert('Sets element position to fixed and sets edge positions') {
+      @include input {
+        @include absolute($top: 10px, $right: 20px, $bottom: 30px, $left: 40px);
+      }
+      @include expect {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        bottom: 30px;
+        left: 40px;
+      }
+    }
+  }
+
+  // Fixed position mixin test
+  @include test('Fixed Position [mixin]') {
+    @include assert('Sets element position to fixed and sets edge positions') {
+      @include input {
+        @include absolute($top: 10px, $right: 20px, $bottom: 30px, $left: 40px);
+      }
+      @include expect {
+        position: fixed;
+        top: 10px;
+        right: 20px;
+        bottom: 30px;
+        left: 40px;
+      }
+    }
+  }
+
+  // Opacity mixin test
+  @include test('Opacity [mixin]') {
+    @include assert('Sets element opacity') {
+      @include input {
+        @include opacity(.5);
+      }
+      @include expect {
+        opacity: .5;
+      }
+    }
+  }
+
+  // Size mixin test
+  @include test('Opacity [mixin]') {
+    @include assert('Sets element size. Height defaults to width if not given.') {
+      @include input {
+        @include size(50px);
+      }
+      @include expect {
+        height: 50px;
+        width: 50px;
+      }
+    }
+  }
+
+  // Transition mixin test
+  @include test('Transition [mixin]') {
+    @include assert('Sets multiple argument transition') {
+      @include input {
+        @include transition(width 2s);
+      }
+      @include expect {
+        transition: width 2s;
+      }
+    }
+  }
+
+  // Transition Delay mixin test
+  @include test('Transition Delay [mixin]') {
+    @include assert('Sets transition delay time') {
+      @include input {
+        @include transition-delay(2s);
+      }
+      @include expect {
+        transition-delay: 2s;
+      }
+    }
+  }
+
+  // Transition Duration mixin test
+  @include test('Transition Duration [mixin]') {
+    @include assert('Sets transition duration time') {
+      @include input {
+        @include transition-duration(1s);
+      }
+      @include expect {
+        transition-delay: 1s;
+      }
+    }
+  }
+
+  // Transition Property mixin test
+  @include test('Transition Property [mixin]') {
+    @include assert('Sets transition property') {
+      @include input {
+        @include transition-property(color);
+      }
+      @include expect {
+        transition-property: color;
+      }
+    }
+  }
+
+  // Transition Timing Function mixin test
+  @include test('Transition Timing Function [mixin]') {
+    @include assert('Sets transition timing function') {
+      @include input {
+        @include transition-timing-function(ease);
+      }
+      @include expect {
+        transition-timing-function: ease;
+      }
+    }
+  }
+
+  // Transform mixin test
+  @include test('Transform [mixin]') {
+    @include assert('Sets transform arguments') {
+      @include input {
+        @include transform(rotate(90deg));
+      }
+      @include expect {
+        transform: rotate(90deg);
+      }
+    }
+  }
+
+  // Transform Origin mixin test
+  @include test('Transform Orgigin [mixin]') {
+    @include assert('Sets transform origin point') {
+      @include input {
+        @include transform-origin(center bottom);
+      }
+      @include expect {
+        transform-origin: center bottom;
+      }
+    }
+  }
+
+  // Transform Style mixin test
+  @include test('Transform Style [mixin]') {
+    @include assert('Sets transform view style') {
+      @include input {
+        @include transform-style(preserve-3d);
+      }
+      @include expect {
+        transform-style: preserve-3d;
+      }
+    }
+  }
+
+  // Perspective mixin test
+  @include test('Perspective [mixin]') {
+    @include assert('Sets view perspective') {
+      @include input {
+        @include perspective(500px);
+      }
+      @include expect {
+        perspective: rotate(90deg);
+      }
+    }
+  }
+
+  // Perspective Origin mixin test
+  @include test('Perspective Origin [mixin]') {
+    @include assert('Sets ') {
+      @include input {
+        @include perspective-origin(10% 10%);
+      }
+      @include expect {
+        perspective-origin: 10% 10%;
+      }
+    }
+  }
+
+  // Backface Visibility mixin test
+  @include test('Backface Visibility [mixin]') {
+    @include assert('Sets element backface visibility') {
+      @include input {
+        @include backface-visibility(hidden);
+      }
+      @include expect {
+        backface-visibility: hidden;
+      }
+    }
+  }
+}
+
+@include report;

@@ -1,1 +1,186 @@
+// @Author: Matthew Juggins <matthewjuggins>
+// @Date:   01-10-16
+// @Email:  jugginsmatthew@gmail.com
+// @Last modified by:   matthewjuggins
+// @Last modified time: 02-10-16
+// Description:
+// A set of useful mixins I frequently use. This is added to as and when I
+// have the need to create new general purpose mixins.
 
+/* Adds necessary browser prefixes to css properties.
+* @param {*} $property : CSS Property
+* @param {*} $value : Value given to property */
+@mixin browser-prefix($property, $value) {
+  -webkit-#{$property}: #{$value};
+  -khtml-#{$property}: #{$value};
+  -moz-#{$property}: #{$value};
+  -ms-#{$property}: #{$value};
+  -o-#{$property}: #{$value};
+  #{$property}: #{$value};
+}
+
+/* Keyframes.
+* @param {*} $animation-name :  Name of animation */
+@mixin animation($animation-name) {
+  @include browser-prefix('animation', $animation-name);
+}
+
+/* Border radius. Can set top, right, bottom, left borders independantly or to inherit from radius value.
+* @param {*} $radius : All border radius values
+* @param {*} $top-left : Top left border radius value. Overwrites $radius.
+* @param {*} $top-right : Top right border radius value. Overwrites $radius.
+* @param {*} $bottom-right : Bottom right border radius value. Overwrites $radius.
+* @param {*} $bottom-left : Bottom left border radius value. Overwrites $radius. */
+@mixin border-radius($radius: 0, $top-left: null, $top-right: null, $bottom-right: null, $bottom-left: null) {
+  @each $arg in $top, $right, $bottom, $left {
+    @if ($arg = null) {
+      $arg = $radius;
+    }
+    @include browser-prefix('border-radius', $top-left $top-right $bottom-right $bottom-left);
+  }
+}
+
+/* Keyframes.
+* @param {*} $animation-name : Animation Name
+* @content : Animation content */
+@mixin keyframes($animation-name) {
+  @-webkit-keyframes #{$animation-name} {
+    @content;
+  }
+  @-moz-keyframes #{$animation-name} {
+    @content;
+  }
+  @-ms-keyframes #{$animation-name} {
+    @content;
+  }
+  @-o-keyframes #{$animation-name} {
+    @content;
+  }
+  @keyframes #{$animation-name} {
+    @content;
+  }
+}
+
+/* Position
+* @param {*} $position: Specifies type of position
+* @param {*} $top: Top edge position, default: null.
+* @param {*} $right: Right edge position, default: null.
+* @param {*} $bottom: Bottom edge position, default: null.
+* @param {*} $left: Left edge position, default: null. */
+@mixin position($position, $top: null, $right: null, $bottom: null, $left: null) {
+  position: $position;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+  left: $left;
+}
+
+// Absolute. Arguments passed to position.
+@mixin absolute($args...) {
+  @include position(absolute, $args...);
+}
+
+// Relative. Arguments passed to position.
+@mixin relative($args...) {
+  @include position(relative, $args...);
+}
+
+// Fixed. Arguments passed to position.
+@mixin fixed($args...) {
+  @include position(fixed, $args...);
+}
+
+/* Opacity.
+* @param {*} $opacity: Specifies type of position */
+@mixin opacity($opacity) {
+  opacity: $opacity;
+  $opacity-ie: $opacity * 100;
+  filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/* Size.
+* @param {*} $width: Specifies type of position.
+* @param {*} $height: Specifies type of position. */
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+/* Transitions.
+* @param {*} $args: Series of arguments for css transition. */
+@mixin transition($args...) {
+  @include browser-prefix('transition', $args);
+}
+
+/* Transition Delay.
+* @param {*} $delay: Transition delay amount. */
+@mixin transition-delay($delay...) {
+  @include browser-prefix('transition-delay', $delay);
+}
+
+/* Transition Duration.
+* @param {*} $duration: Transition duration amount.  */
+@mixin transition-duration($duration...) {
+  @include browser-prefix('transition-duration', $duration);
+}
+
+/* Transition Property.
+* @param {*} $property: Property(s) affected by transition. */
+@mixin transition-property($property...) {
+  @include browser-prefix('transition-property', $property);
+}
+
+/* Transition Timing Function.
+* @param {*} $timing: Transition timing type.  */
+@mixin transition-timing-function($timing...) {
+  @include browser-prefix('transition-timing-function', $timing);
+}
+
+/* Transform.
+* @param {*} $transforms: Transform arguments. */
+@mixin transform($transforms) {
+  @include browser-prefix('transforms', $transforms);
+}
+
+/* Transform Origin.
+* @param {*} $origin: Transform origin position. */
+@mixin transform-origin($origin: 50% 50% 0) {
+  @include browser-prefix('transform-origin', $origin);
+}
+
+/* Transform Style.
+* @param {*} $style: Transform style argument. */
+@mixin transform-style($style: flat) {
+  @include browser-prefix('transform-style', $style);
+}
+
+/* Perspective.
+* @param {*} $perspective: Perspective argument */
+@mixin perspective($perspective: none) {
+  @include browser-prefix('perspective', $perspective);
+}
+
+/* Perspective Origin.
+* @param {*} $origin:  Bottom position of 3D elements argument. */
+@mixin transform-style($origin: 50% 50%) {
+  @include browser-prefix('transform-style', $origin);
+}
+
+/* Backface Visibility
+* @param {*} $visibility: Backface visibility argument. */
+@mixin transform-style($visibility: visible) {
+  @include browser-prefix('transform-style', $visibility);
+}
+
+/* Text Arc. Rotates consecutive characters. For use with lettering.js
+* @param {*} $num-letters:
+* @param {*} $angle-span:
+* @param {*} $angle-offset: . */
+@mixin text-arc($num-letters: 100, $angle-span: 180deg, $angle-offset: 0deg) {
+  $angle-per-char: $angle-span / $num-letters;
+  @for $i from 1 through $num-letters {
+    .char#{$i} {
+      @include transform(rotate($angle-offset + $angle-per-char * $i));
+    }
+  }
+}
