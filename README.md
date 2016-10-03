@@ -7,9 +7,9 @@ There are of course some incredible alternatives out there, especially when it c
 All mixins and functions have unit tests using [True](http://oddbird.net/true/).
 
 ## Included Files
-[Flexbox Mixins](SCSS-Mixins/scss/flex_mixins.scss)
-[General Purpose Mixins](SCSS-Mixins/scss/general_mixins.scss)
-[General Purpose Functions](SCSS-Mixins/scss/general_functions.scss)
+* [Flexbox Mixins](SCSS-Mixins/scss/flex_mixins.scss)
+* [General Purpose Mixins](SCSS-Mixins/scss/general_mixins.scss)
+* [General Purpose Functions](SCSS-Mixins/scss/general_functions.scss)
 
 ## Examples
 ```
