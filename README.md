@@ -12,7 +12,7 @@ All mixins and functions have unit tests using [True](http://oddbird.net/true/).
 * [General Purpose Functions](SCSS-Mixins/scss/general_functions.scss)
 
 ## Examples
-```
+``` sass
 // Import general purpose mixins
 @import "general-mixins.scss"
 
